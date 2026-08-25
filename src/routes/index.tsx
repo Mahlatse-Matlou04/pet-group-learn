@@ -478,6 +478,225 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Careers */}
+        <section id="careers" className="mx-auto max-w-6xl px-4 py-16 md:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Careers at PET Group
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Become a PET Group tutor</h2>
+              <p className="mt-4 text-muted-foreground">
+                We are always looking for strong, patient subject specialists to join our team in
+                Lotus Gardens and online. If you know your content and love teaching, we want to
+                hear from you.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+                {[
+                  "Relevant qualification or current studies in your subject",
+                  "Grade 8–12 CAPS, IEB, Cambridge, TVET or varsity content mastery",
+                  "Available for afternoons, weekends and exam-season crossdays",
+                  "Professional, reliable and great with learners and parents",
+                ].map((req) => (
+                  <li key={req} className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                    {req}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-sm text-muted-foreground">
+                Subjects in demand: {tutorSubjectOptions.join(", ")}.
+              </p>
+            </div>
+
+            <form
+              className="rounded-3xl border border-border bg-card p-6 md:p-8"
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.location.href = mailto(
+                  `Tutor application — ${tutor.name || "PET Group"}`,
+                  [
+                    `Name: ${tutor.name}`,
+                    `Email: ${tutor.email}`,
+                    `Phone: ${tutor.phone}`,
+                    `Qualification: ${tutor.qualification}`,
+                    `Subjects: ${tutor.subjectsTaught}`,
+                    "",
+                    "Experience:",
+                    tutor.experience,
+                  ].join("\n"),
+                );
+              }}
+            >
+              <h3 className="font-display text-xl font-bold">Apply to tutor with us</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Complete the form and we&apos;ll open an email to {contact.email} with your details.
+              </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-name">Full name</Label>
+                  <Input
+                    id="tutor-name"
+                    required
+                    value={tutor.name}
+                    onChange={(e) => setTutor({ ...tutor, name: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-phone">Phone number</Label>
+                  <Input
+                    id="tutor-phone"
+                    required
+                    value={tutor.phone}
+                    onChange={(e) => setTutor({ ...tutor, phone: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="tutor-email">Email address</Label>
+                  <Input
+                    id="tutor-email"
+                    type="email"
+                    required
+                    value={tutor.email}
+                    onChange={(e) => setTutor({ ...tutor, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-qual">Highest qualification</Label>
+                  <Input
+                    id="tutor-qual"
+                    value={tutor.qualification}
+                    onChange={(e) => setTutor({ ...tutor, qualification: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-subjects">Subjects you can teach</Label>
+                  <Input
+                    id="tutor-subjects"
+                    value={tutor.subjectsTaught}
+                    onChange={(e) => setTutor({ ...tutor, subjectsTaught: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="tutor-exp">Teaching experience</Label>
+                  <Textarea
+                    id="tutor-exp"
+                    rows={4}
+                    value={tutor.experience}
+                    onChange={(e) => setTutor({ ...tutor, experience: e.target.value })}
+                  />
+                </div>
+              </div>
+              <Button type="submit" className="mt-6 w-full sm:w-auto">
+                Send application
+              </Button>
+            </form>
+          </div>
+        </section>
+
+        {/* Parent enquiry */}
+        <section id="enquire" className="bg-muted/60 py-16 md:py-24">
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Not sure yet?
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Parent enquiry</h2>
+              <p className="mt-4 text-muted-foreground">
+                If you&apos;re unsure which package, subject or session length suits your child,
+                send us an enquiry. We&apos;ll advise honestly — no obligation, no pressure.
+              </p>
+              <div className="mt-6 space-y-3 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-secondary" /> {contact.phone} ({contact.ceo}, CEO)
+                </p>
+                <p className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-secondary" /> {contact.email}
+                </p>
+                <p className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-secondary" /> {contact.address}
+                </p>
+              </div>
+            </div>
+            <form
+              className="rounded-3xl border border-border bg-card p-6 md:p-8"
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.location.href = mailto(
+                  `Parent enquiry — ${enquiry.parent || "PET Group"}`,
+                  [
+                    `Parent / guardian: ${enquiry.parent}`,
+                    `Email: ${enquiry.email}`,
+                    `Phone: ${enquiry.phone}`,
+                    `Grade / subject: ${enquiry.grade}`,
+                    "",
+                    "Question:",
+                    enquiry.message,
+                  ].join("\n"),
+                );
+              }}
+            >
+              <h3 className="font-display text-xl font-bold">Ask us a question</h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="p-name">Your name</Label>
+                  <Input
+                    id="p-name"
+                    required
+                    value={enquiry.parent}
+                    onChange={(e) => setEnquiry({ ...enquiry, parent: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-phone">Phone number</Label>
+                  <Input
+                    id="p-phone"
+                    required
+                    value={enquiry.phone}
+                    onChange={(e) => setEnquiry({ ...enquiry, phone: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-email">Email address</Label>
+                  <Input
+                    id="p-email"
+                    type="email"
+                    value={enquiry.email}
+                    onChange={(e) => setEnquiry({ ...enquiry, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-grade">Grade &amp; subject</Label>
+                  <Input
+                    id="p-grade"
+                    placeholder="e.g. Grade 11 Maths"
+                    value={enquiry.grade}
+                    onChange={(e) => setEnquiry({ ...enquiry, grade: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="p-msg">Your question</Label>
+                  <Textarea
+                    id="p-msg"
+                    rows={4}
+                    required
+                    value={enquiry.message}
+                    onChange={(e) => setEnquiry({ ...enquiry, message: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button type="submit">Send enquiry</Button>
+                <Button asChild variant="outline">
+                  <a href={contact.whatsapp} target="_blank" rel="noreferrer">
+                    WhatsApp us instead
+                  </a>
+                </Button>
+              </div>
+            </form>
+          </div>
+        </section>
+
         {/* Contact */}
         <section id="contact" className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="max-w-2xl">
