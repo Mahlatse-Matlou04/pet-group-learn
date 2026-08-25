@@ -198,6 +198,41 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Credentials */}
+        <section className="border-b border-border bg-card">
+          <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3">
+            {[
+              {
+                icon: CalendarCheck,
+                t: `${company.yearsActive} years of existence`,
+                d: "Established tutoring track record with Pretoria families.",
+              },
+              {
+                icon: BadgeCheck,
+                t: "VAT registered company",
+                d: "PET Group (Pty) Ltd — proper invoices for every payment.",
+              },
+              {
+                icon: Building2,
+                t: "Our own office",
+                d: contact.address,
+              },
+            ].map((item) => (
+              <div key={item.t} className="flex items-start gap-3">
+                <span className="rounded-xl bg-secondary/10 p-2.5 text-secondary">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="font-display text-sm font-bold">{item.t}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
+
         {/* Subjects */}
         <section id="subjects" className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="max-w-2xl">
