@@ -441,16 +441,17 @@ function HomePage() {
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">About PET Group</h2>
               <p className="mt-4 text-muted-foreground">
                 PET Group (Pty) Ltd trades as Pursue Excellence Tutoring, a Pretoria-based tutoring
-                company founded to unlock every learner's academic potential. We specialise in the
-                subjects learners fear most — Mathematics, Physical Sciences and Life Sciences —
-                and extend that support to Technical Mathematics, Mathematical Literacy, Geography,
-                Cambridge and IEB curricula, university mathematics and TVET Civil Engineering
-                modules.
+                company with {company.yearsActive} years of existence, VAT registered, and operating
+                from our own office at {contact.address}. We specialise in the subjects learners
+                fear most — Mathematics, Physical Sciences and Life Sciences — and extend that
+                support to Technical Mathematics, Mathematical Literacy, Geography, Cambridge and
+                IEB curricula, university mathematics and TVET Civil Engineering modules.
               </p>
               <p className="mt-4 text-muted-foreground">
                 Sessions are structured: diagnostic assessment first, then a term plan, weekly
-                sessions, homework checks and past-paper exam preparation. Parents receive progress
-                feedback so you always know where your child stands.
+                sessions, homework assistance, past-paper exam preparation and exam-season
+                crossdays and crossnights. Parents receive progress feedback so you always know
+                where your child stands.
               </p>
             </div>
             <div className="rounded-3xl border border-border bg-card p-8">
