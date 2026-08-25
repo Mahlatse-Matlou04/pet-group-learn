@@ -116,3 +116,49 @@ export const packageTiers: PackageTier[] = [
 ];
 
 export const registrationFee = 100;
+
+export const company = {
+  yearsActive: 6,
+  foundedYear: new Date().getFullYear() - 6,
+  vatRegistered: true,
+};
+
+export type Service = {
+  title: string;
+  description: string;
+};
+
+export const services: Service[] = [
+  {
+    title: "Homework assistance",
+    description:
+      "Daily homework support and corrections so learners never fall behind on classwork or assignments.",
+  },
+  {
+    title: "Exam past papers",
+    description:
+      "Structured past-paper drilling with memo walkthroughs, timing practice and marker-style feedback.",
+  },
+  {
+    title: "Crossdays & crossnights",
+    description:
+      "Intensive revision marathons every exam season — full-day and late-night sessions at our office in Lotus Gardens.",
+  },
+  {
+    title: "Progress feedback",
+    description:
+      "Diagnostic assessment, a term plan and regular progress reports so parents always know where their child stands.",
+  },
+];
+
+export const tutorSubjectOptions = [
+  "Mathematics (Grade 8–12)",
+  "Technical Mathematics",
+  "Mathematical Literacy",
+  "Physical Sciences",
+  "Life Sciences",
+  "Geography",
+  "Varsity Mathematics",
+  "College Civil Engineering",
+  "Cambridge / IEB Mathematics",
+];
