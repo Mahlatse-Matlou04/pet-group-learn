@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
+  BadgeCheck,
   BookOpen,
+  Building2,
   CalendarCheck,
   CheckCircle2,
+  ClipboardList,
   GraduationCap,
   Mail,
   MapPin,
@@ -16,7 +19,18 @@ import {
 import logo from "@/assets/pet-logo.jpeg.asset.json";
 import sessionPhoto from "@/assets/tutoring-session.png.asset.json";
 import { Button } from "@/components/ui/button";
-import { contact, packageTiers, registrationFee, subjects } from "@/data/site";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  company,
+  contact,
+  packageTiers,
+  registrationFee,
+  services,
+  subjects,
+  tutorSubjectOptions,
+} from "@/data/site";
 
 const title = "PET Group Tutoring | Maths, Sciences & Engineering Tutors Pretoria";
 const description =
