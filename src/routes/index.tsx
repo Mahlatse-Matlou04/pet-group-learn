@@ -78,15 +78,36 @@ export const Route = createFileRoute("/")({
 
 const navLinks = [
   { href: "#subjects", label: "Subjects" },
+  { href: "#support", label: "Support" },
   { href: "#pricing", label: "Pricing" },
   { href: "#online", label: "Online" },
-  { href: "#about", label: "About" },
+  { href: "#careers", label: "Careers" },
+  { href: "#enquire", label: "Enquire" },
   { href: "#contact", label: "Contact" },
 ];
+
+const mailto = (subject: string, body: string) =>
+  `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
 function HomePage() {
   const [activeTier, setActiveTier] = useState(packageTiers[1]!.id);
   const tier = packageTiers.find((t) => t.id === activeTier) ?? packageTiers[0]!;
+
+  const [tutor, setTutor] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    qualification: "",
+    subjectsTaught: "",
+    experience: "",
+  });
+  const [enquiry, setEnquiry] = useState({
+    parent: "",
+    email: "",
+    phone: "",
+    grade: "",
+    message: "",
+  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">
