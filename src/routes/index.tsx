@@ -261,7 +261,48 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Support */}
+        <section id="support" className="bg-muted/60 py-16 md:py-24">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Beyond weekly lessons
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Homework, past papers &amp; exam camps</h2>
+              <p className="mt-4 text-muted-foreground">
+                Included with every package — the extra support that turns understanding into marks.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {services.map((service) => (
+                <article
+                  key={service.title}
+                  className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-soft"
+                >
+                  <ClipboardList className="h-6 w-6 text-secondary" />
+                  <h3 className="mt-4 text-lg font-bold">{service.title}</h3>
+                  <p className="mt-3 text-sm text-muted-foreground">{service.description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-8 rounded-3xl bg-card-gradient p-8 text-primary-foreground md:p-10">
+              <h3 className="font-display text-2xl font-bold">Exam season crossdays &amp; crossnights</h3>
+              <p className="mt-3 max-w-3xl text-primary-foreground/90">
+                Every exam season we open our Lotus Gardens office for marathon revision sessions —
+                full-day crossdays and supervised crossnights where learners work through past
+                papers, memos and problem sets with tutors on hand from start to finish.
+              </p>
+              <Button asChild className="mt-6" variant="secondary">
+                <a href={contact.whatsapp} target="_blank" rel="noreferrer">
+                  Ask about the next crossnight
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing */}
+
         <section id="pricing" className="bg-muted/60 py-16 md:py-24">
           <div className="mx-auto max-w-6xl px-4">
             <div className="max-w-2xl">
