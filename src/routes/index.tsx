@@ -71,8 +71,8 @@ const navLinks = [
 ];
 
 function HomePage() {
-  const [activeTier, setActiveTier] = useState(packageTiers[1].id);
-  const tier = packageTiers.find((t) => t.id === activeTier) ?? packageTiers[0];
+  const [activeTier, setActiveTier] = useState(packageTiers[1]!.id);
+  const tier = packageTiers.find((t) => t.id === activeTier) ?? packageTiers[0]!;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
