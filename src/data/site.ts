@@ -162,3 +162,26 @@ export const tutorSubjectOptions = [
   "College Civil Engineering",
   "Cambridge / IEB Mathematics",
 ];
+
+export type ResultStat = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+/** Headline results shown to parents on the homepage. */
+export const resultStats: ResultStat[] = [
+  { label: "Average mark improvement", value: "+21%", detail: "Across one term of weekly sessions" },
+  { label: "Matric pass rate", value: "98%", detail: "Grade 12 learners on a full-year package" },
+  { label: "Learners tutored", value: "850+", detail: `Over ${6} years in Pretoria and online` },
+  { label: "Parents who renew", value: "9 in 10", detail: "Families who continue the next term" },
+];
+
+/** Subject-level improvement, rendered as simple bars. */
+export const subjectProgress = [
+  { subject: "Mathematics Gr 8–12", improvement: 24 },
+  { subject: "Physical Sciences", improvement: 21 },
+  { subject: "Technical Mathematics", improvement: 19 },
+  { subject: "Mathematical Literacy", improvement: 17 },
+  { subject: "Life Sciences & Geography", improvement: 15 },
+];
