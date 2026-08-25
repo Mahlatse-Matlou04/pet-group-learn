@@ -303,7 +303,7 @@ function HomePage() {
 
         {/* Pricing */}
 
-        <section id="pricing" className="bg-muted/60 py-16 md:py-24">
+        <section id="pricing" className="py-16 md:py-24">
           <div className="mx-auto max-w-6xl px-4">
             <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
