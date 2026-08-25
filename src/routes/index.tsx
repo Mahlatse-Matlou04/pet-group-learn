@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
+  BadgeCheck,
   BookOpen,
+  Building2,
   CalendarCheck,
   CheckCircle2,
+  ClipboardList,
   GraduationCap,
   Mail,
   MapPin,
@@ -16,11 +19,22 @@ import {
 import logo from "@/assets/pet-logo.jpeg.asset.json";
 import sessionPhoto from "@/assets/tutoring-session.png.asset.json";
 import { Button } from "@/components/ui/button";
-import { contact, packageTiers, registrationFee, subjects } from "@/data/site";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  company,
+  contact,
+  packageTiers,
+  registrationFee,
+  services,
+  subjects,
+  tutorSubjectOptions,
+} from "@/data/site";
 
 const title = "PET Group Tutoring | Maths, Sciences & Engineering Tutors Pretoria";
 const description =
-  "PET Group (Pty) Ltd — Pursue Excellence Tutoring in Lotus Gardens, Pretoria. Maths Grade 8-12, Technical Maths, Maths Lit, Cambridge & IEB, varsity maths, civil engineering modules, Physical & Life Sciences and Geography. In-person and online sessions.";
+  "PET Group (Pty) Ltd — Pursue Excellence Tutoring, Lotus Gardens Pretoria. 6 years, VAT registered, own office. Maths Grade 8-12, Technical Maths, Maths Lit, Cambridge & IEB, varsity maths, civil engineering, Sciences & Geography. Homework help, past papers, exam crossnights, online sessions and tutor careers.";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -64,15 +78,36 @@ export const Route = createFileRoute("/")({
 
 const navLinks = [
   { href: "#subjects", label: "Subjects" },
+  { href: "#support", label: "Support" },
   { href: "#pricing", label: "Pricing" },
   { href: "#online", label: "Online" },
-  { href: "#about", label: "About" },
+  { href: "#careers", label: "Careers" },
+  { href: "#enquire", label: "Enquire" },
   { href: "#contact", label: "Contact" },
 ];
+
+const mailto = (subject: string, body: string) =>
+  `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
 function HomePage() {
   const [activeTier, setActiveTier] = useState(packageTiers[1]!.id);
   const tier = packageTiers.find((t) => t.id === activeTier) ?? packageTiers[0]!;
+
+  const [tutor, setTutor] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    qualification: "",
+    subjectsTaught: "",
+    experience: "",
+  });
+  const [enquiry, setEnquiry] = useState({
+    parent: "",
+    email: "",
+    phone: "",
+    grade: "",
+    message: "",
+  });
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -163,6 +198,41 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Credentials */}
+        <section className="border-b border-border bg-card">
+          <div className="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3">
+            {[
+              {
+                icon: CalendarCheck,
+                t: `${company.yearsActive} years of existence`,
+                d: "Established tutoring track record with Pretoria families.",
+              },
+              {
+                icon: BadgeCheck,
+                t: "VAT registered company",
+                d: "PET Group (Pty) Ltd — proper invoices for every payment.",
+              },
+              {
+                icon: Building2,
+                t: "Our own office",
+                d: contact.address,
+              },
+            ].map((item) => (
+              <div key={item.t} className="flex items-start gap-3">
+                <span className="rounded-xl bg-secondary/10 p-2.5 text-secondary">
+                  <item.icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <p className="font-display text-sm font-bold">{item.t}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
+
         {/* Subjects */}
         <section id="subjects" className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="max-w-2xl">
@@ -191,8 +261,49 @@ function HomePage() {
           </div>
         </section>
 
+        {/* Support */}
+        <section id="support" className="bg-muted/60 py-16 md:py-24">
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Beyond weekly lessons
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Homework, past papers &amp; exam camps</h2>
+              <p className="mt-4 text-muted-foreground">
+                Included with every package — the extra support that turns understanding into marks.
+              </p>
+            </div>
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {services.map((service) => (
+                <article
+                  key={service.title}
+                  className="flex flex-col rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-soft"
+                >
+                  <ClipboardList className="h-6 w-6 text-secondary" />
+                  <h3 className="mt-4 text-lg font-bold">{service.title}</h3>
+                  <p className="mt-3 text-sm text-muted-foreground">{service.description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="mt-8 rounded-3xl bg-card-gradient p-8 text-primary-foreground md:p-10">
+              <h3 className="font-display text-2xl font-bold">Exam season crossdays &amp; crossnights</h3>
+              <p className="mt-3 max-w-3xl text-primary-foreground/90">
+                Every exam season we open our Lotus Gardens office for marathon revision sessions —
+                full-day crossdays and supervised crossnights where learners work through past
+                papers, memos and problem sets with tutors on hand from start to finish.
+              </p>
+              <Button asChild className="mt-6" variant="secondary">
+                <a href={contact.whatsapp} target="_blank" rel="noreferrer">
+                  Ask about the next crossnight
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing */}
-        <section id="pricing" className="bg-muted/60 py-16 md:py-24">
+
+        <section id="pricing" className="py-16 md:py-24">
           <div className="mx-auto max-w-6xl px-4">
             <div className="max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
@@ -330,16 +441,17 @@ function HomePage() {
               <h2 className="mt-3 text-3xl font-bold sm:text-4xl">About PET Group</h2>
               <p className="mt-4 text-muted-foreground">
                 PET Group (Pty) Ltd trades as Pursue Excellence Tutoring, a Pretoria-based tutoring
-                company founded to unlock every learner's academic potential. We specialise in the
-                subjects learners fear most — Mathematics, Physical Sciences and Life Sciences —
-                and extend that support to Technical Mathematics, Mathematical Literacy, Geography,
-                Cambridge and IEB curricula, university mathematics and TVET Civil Engineering
-                modules.
+                company with {company.yearsActive} years of existence, VAT registered, and operating
+                from our own office at {contact.address}. We specialise in the subjects learners
+                fear most — Mathematics, Physical Sciences and Life Sciences — and extend that
+                support to Technical Mathematics, Mathematical Literacy, Geography, Cambridge and
+                IEB curricula, university mathematics and TVET Civil Engineering modules.
               </p>
               <p className="mt-4 text-muted-foreground">
                 Sessions are structured: diagnostic assessment first, then a term plan, weekly
-                sessions, homework checks and past-paper exam preparation. Parents receive progress
-                feedback so you always know where your child stands.
+                sessions, homework assistance, past-paper exam preparation and exam-season
+                crossdays and crossnights. Parents receive progress feedback so you always know
+                where your child stands.
               </p>
             </div>
             <div className="rounded-3xl border border-border bg-card p-8">
@@ -364,6 +476,225 @@ function HomePage() {
                 </li>
               </ul>
             </div>
+          </div>
+        </section>
+
+        {/* Careers */}
+        <section id="careers" className="mx-auto max-w-6xl px-4 py-16 md:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Careers at PET Group
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Become a PET Group tutor</h2>
+              <p className="mt-4 text-muted-foreground">
+                We are always looking for strong, patient subject specialists to join our team in
+                Lotus Gardens and online. If you know your content and love teaching, we want to
+                hear from you.
+              </p>
+              <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
+                {[
+                  "Relevant qualification or current studies in your subject",
+                  "Grade 8–12 CAPS, IEB, Cambridge, TVET or varsity content mastery",
+                  "Available for afternoons, weekends and exam-season crossdays",
+                  "Professional, reliable and great with learners and parents",
+                ].map((req) => (
+                  <li key={req} className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                    {req}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 text-sm text-muted-foreground">
+                Subjects in demand: {tutorSubjectOptions.join(", ")}.
+              </p>
+            </div>
+
+            <form
+              className="rounded-3xl border border-border bg-card p-6 md:p-8"
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.location.href = mailto(
+                  `Tutor application — ${tutor.name || "PET Group"}`,
+                  [
+                    `Name: ${tutor.name}`,
+                    `Email: ${tutor.email}`,
+                    `Phone: ${tutor.phone}`,
+                    `Qualification: ${tutor.qualification}`,
+                    `Subjects: ${tutor.subjectsTaught}`,
+                    "",
+                    "Experience:",
+                    tutor.experience,
+                  ].join("\n"),
+                );
+              }}
+            >
+              <h3 className="font-display text-xl font-bold">Apply to tutor with us</h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Complete the form and we&apos;ll open an email to {contact.email} with your details.
+              </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-name">Full name</Label>
+                  <Input
+                    id="tutor-name"
+                    required
+                    value={tutor.name}
+                    onChange={(e) => setTutor({ ...tutor, name: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-phone">Phone number</Label>
+                  <Input
+                    id="tutor-phone"
+                    required
+                    value={tutor.phone}
+                    onChange={(e) => setTutor({ ...tutor, phone: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="tutor-email">Email address</Label>
+                  <Input
+                    id="tutor-email"
+                    type="email"
+                    required
+                    value={tutor.email}
+                    onChange={(e) => setTutor({ ...tutor, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-qual">Highest qualification</Label>
+                  <Input
+                    id="tutor-qual"
+                    value={tutor.qualification}
+                    onChange={(e) => setTutor({ ...tutor, qualification: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="tutor-subjects">Subjects you can teach</Label>
+                  <Input
+                    id="tutor-subjects"
+                    value={tutor.subjectsTaught}
+                    onChange={(e) => setTutor({ ...tutor, subjectsTaught: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="tutor-exp">Teaching experience</Label>
+                  <Textarea
+                    id="tutor-exp"
+                    rows={4}
+                    value={tutor.experience}
+                    onChange={(e) => setTutor({ ...tutor, experience: e.target.value })}
+                  />
+                </div>
+              </div>
+              <Button type="submit" className="mt-6 w-full sm:w-auto">
+                Send application
+              </Button>
+            </form>
+          </div>
+        </section>
+
+        {/* Parent enquiry */}
+        <section id="enquire" className="bg-muted/60 py-16 md:py-24">
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-widest text-secondary">
+                Not sure yet?
+              </p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Parent enquiry</h2>
+              <p className="mt-4 text-muted-foreground">
+                If you&apos;re unsure which package, subject or session length suits your child,
+                send us an enquiry. We&apos;ll advise honestly — no obligation, no pressure.
+              </p>
+              <div className="mt-6 space-y-3 text-sm text-muted-foreground">
+                <p className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 text-secondary" /> {contact.phone} ({contact.ceo}, CEO)
+                </p>
+                <p className="flex items-center gap-2">
+                  <Mail className="h-4 w-4 text-secondary" /> {contact.email}
+                </p>
+                <p className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-secondary" /> {contact.address}
+                </p>
+              </div>
+            </div>
+            <form
+              className="rounded-3xl border border-border bg-card p-6 md:p-8"
+              onSubmit={(e) => {
+                e.preventDefault();
+                window.location.href = mailto(
+                  `Parent enquiry — ${enquiry.parent || "PET Group"}`,
+                  [
+                    `Parent / guardian: ${enquiry.parent}`,
+                    `Email: ${enquiry.email}`,
+                    `Phone: ${enquiry.phone}`,
+                    `Grade / subject: ${enquiry.grade}`,
+                    "",
+                    "Question:",
+                    enquiry.message,
+                  ].join("\n"),
+                );
+              }}
+            >
+              <h3 className="font-display text-xl font-bold">Ask us a question</h3>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="p-name">Your name</Label>
+                  <Input
+                    id="p-name"
+                    required
+                    value={enquiry.parent}
+                    onChange={(e) => setEnquiry({ ...enquiry, parent: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-phone">Phone number</Label>
+                  <Input
+                    id="p-phone"
+                    required
+                    value={enquiry.phone}
+                    onChange={(e) => setEnquiry({ ...enquiry, phone: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-email">Email address</Label>
+                  <Input
+                    id="p-email"
+                    type="email"
+                    value={enquiry.email}
+                    onChange={(e) => setEnquiry({ ...enquiry, email: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="p-grade">Grade &amp; subject</Label>
+                  <Input
+                    id="p-grade"
+                    placeholder="e.g. Grade 11 Maths"
+                    value={enquiry.grade}
+                    onChange={(e) => setEnquiry({ ...enquiry, grade: e.target.value })}
+                  />
+                </div>
+                <div className="grid gap-2 sm:col-span-2">
+                  <Label htmlFor="p-msg">Your question</Label>
+                  <Textarea
+                    id="p-msg"
+                    rows={4}
+                    required
+                    value={enquiry.message}
+                    onChange={(e) => setEnquiry({ ...enquiry, message: e.target.value })}
+                  />
+                </div>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button type="submit">Send enquiry</Button>
+                <Button asChild variant="outline">
+                  <a href={contact.whatsapp} target="_blank" rel="noreferrer">
+                    WhatsApp us instead
+                  </a>
+                </Button>
+              </div>
+            </form>
           </div>
         </section>
 
