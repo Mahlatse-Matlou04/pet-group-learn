@@ -34,7 +34,7 @@ import {
 
 const title = "PET Group Tutoring | Maths, Sciences & Engineering Tutors Pretoria";
 const description =
-  "PET Group (Pty) Ltd — Pursue Excellence Tutoring in Lotus Gardens, Pretoria. Maths Grade 8-12, Technical Maths, Maths Lit, Cambridge & IEB, varsity maths, civil engineering modules, Physical & Life Sciences and Geography. In-person and online sessions.";
+  "PET Group (Pty) Ltd — Pursue Excellence Tutoring, Lotus Gardens Pretoria. 6 years, VAT registered, own office. Maths Grade 8-12, Technical Maths, Maths Lit, Cambridge & IEB, varsity maths, civil engineering, Sciences & Geography. Homework help, past papers, exam crossnights, online sessions and tutor careers.";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
