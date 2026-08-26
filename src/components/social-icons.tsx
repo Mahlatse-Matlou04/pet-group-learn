@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { ReactElement, SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -73,7 +73,7 @@ export function LinkedInIcon(props: IconProps) {
   );
 }
 
-export const socialIcons: Record<string, (props: IconProps) => JSX.Element> = {
+export const socialIcons: Record<string, (props: IconProps) => ReactElement> = {
   Instagram: InstagramIcon,
   Facebook: FacebookIcon,
   TikTok: TikTokIcon,
