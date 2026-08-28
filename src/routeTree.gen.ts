@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssistantRouteImport } from './routes/assistant'
 import { Route as BackpackRouteImport } from './routes/backpack'
+import { Route as AssistantIndexRouteImport } from './routes/assistant/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,41 @@ const BackpackRoute = BackpackRouteImport.update({
   path: '/backpack',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssistantIndexRoute = AssistantIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AssistantRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
+  '/assistant': typeof AssistantRouteWithChildren
   '/backpack': typeof BackpackRoute
+  '/assistant/': typeof AssistantIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
   '/backpack': typeof BackpackRoute
+  '/assistant': typeof AssistantIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/assistant': typeof AssistantRoute
+  '/assistant': typeof AssistantRouteWithChildren
   '/backpack': typeof BackpackRoute
+  '/assistant/': typeof AssistantIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assistant' | '/backpack'
+  fullPaths: '/' | '/assistant' | '/backpack' | '/assistant/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assistant' | '/backpack'
-  id: '__root__' | '/' | '/assistant' | '/backpack'
+  to: '/' | '/backpack' | '/assistant'
+  id: '__root__' | '/' | '/assistant' | '/backpack' | '/assistant/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AssistantRoute: typeof AssistantRoute
+  AssistantRoute: typeof AssistantRouteWithChildren
   BackpackRoute: typeof BackpackRoute
 }
 
@@ -82,12 +90,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackpackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assistant/': {
+      id: '/assistant/'
+      path: '/'
+      fullPath: '/assistant/'
+      preLoaderRoute: typeof AssistantIndexRouteImport
+      parentRoute: typeof AssistantRoute
+    }
   }
 }
 
+interface AssistantRouteChildren {
+  AssistantIndexRoute: typeof AssistantIndexRoute
+}
+
+const AssistantRouteChildren: AssistantRouteChildren = {
+  AssistantIndexRoute: AssistantIndexRoute,
+}
+
+const AssistantRouteWithChildren = AssistantRoute._addFileChildren(
+  AssistantRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AssistantRoute: AssistantRoute,
+  AssistantRoute: AssistantRouteWithChildren,
   BackpackRoute: BackpackRoute,
 }
 export const routeTree = rootRouteImport
